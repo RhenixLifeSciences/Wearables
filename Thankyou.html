@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        // retrieve it back from storage 
+        var obj = localStorage.getItem("demographicData");
+        // use it
+        console.log(JSON.parse(obj));
+        alert(JSON.parse(obj));
+function tokenGeneration()
+{
+    var tokenString = "client_id=491655752747-gcl0gml5htbqhkmjq1lohjmk5k8qfjn1.apps.googleusercontent.com" +
+                    "&client_secret=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" +
+                    "&redirect_uri=https://cure.science/login/redirectapp" +
+                    "&refresh_token=1//04EEUGmvdV0hqCgYIARAAGAQSNwF-L9IrzE311tqHwKZd6sof16VxyIUn27ozrr-dYJfRj4X0_5EYoCd-acbYkH5aANista9-JII" +
+                    "&grant_type=refresh_token";
+    getData(tokenString)                
+}
+        function getData(data) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://oauth2.googleapis.com/token",
+                    data: data,
+                    contentType: "application/x-www-form-urlencoded",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (responseData, status, jqXHR) {
+                        console.log(responseData);
+                        var accessToken = responseData.access_token;
+                       // document.getElementById('result').textContent = accessToken;
+                         console.log(accessToken);
+                    },
+                    error: function (jqXHR, status) {
+                        console.log(jqXHR);
+                        alert('Data retrieval failed: ' + status.code);
+                    }
+                });
+            }
+    </script>
+</head>
+<body onload="tokenGeneration()">
+    <h1>Thank you for registering!</h1>
+    <p>Your registration has been successfully submitted.</p>
+    <p><a href="index.html">Go back to the main page</a></p>
+</body>
+</html>
